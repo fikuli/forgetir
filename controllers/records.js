@@ -6,28 +6,38 @@ recordsRouter.post('/', async (request, response) => {
 	const query = request.body
 	logger.info(query)
 	
-	const records = await Record.aggregate([
-		{
-			$project: {
-				_id: 0,
-				totalCount: { $sum: '$counts'},
-				createdAt: '$createdAt',
-				key: '$key'
-			}
-		}, 
-		{ '$match' : { 
-			totalCount : { '$gte' : query.minCount, '$lte': query.maxCount },
-			createdAt: {'$gte' : new Date(query.startDate), '$lte': new Date(query.endDate)}
-		} }
-	])
+	try{
+		const records = await Record.aggregate([
+			{
+				$project: {
+					_id: 0,
+					totalCount: { $sum: '$counts'},
+					createdAt: '$createdAt',
+					key: '$key'
+				}
+			}, 
+			{ '$match' : { 
+				totalCount : { '$gte' : query.minCount, '$lte': query.maxCount },
+				createdAt: {'$gte' : new Date(query.startDate), '$lte': new Date(query.endDate)}
+			} }
+		])
   
-	let result ={
-		'code': 0,
-		'msg': 'Success',
+		let result ={
+			'code': 0,
+			'msg': 'Success',
+		}
+		result.records = records
+  
+		response.json(result)
 	}
-	result.records = records
-  
-	response.json(result)
+	catch(exception) {
+		let result ={
+			'code': 404,
+			'msg': 'Database connection lost',
+			'records': []
+		} 
+		response.status(404).json(result)
+	}
 })
 
 module.exports = recordsRouter
