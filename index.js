@@ -5,40 +5,35 @@ const Record = require('./models/record')
 
 app.use(express.json())
 
-
-app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
-})
-
 app.post('/api/records', (request, response) => {
-  const query = request.body
-  console.log(query)
+	const query = request.body
+	console.log(query)
   
-  Record.aggregate([
-    {
-      $project: {
-        _id: 0,
-        totalCount: { $sum: "$counts"},
-        createdAt: "$createdAt",
-        key: "$key"
-      }
-    }, 
-    { "$match" : { 
-      totalCount : { "$gte" : query.minCount, "$lte": query.maxCount },
-      createdAt: {"$gte" : new Date(query.startDate), "$lte": new Date(query.endDate)}
-    } }
-  ]).then(records => {
+	Record.aggregate([
+		{
+			$project: {
+				_id: 0,
+				totalCount: { $sum: "$counts"},
+				createdAt: "$createdAt",
+				key: "$key"
+			}
+		}, 
+		{ "$match" : { 
+			totalCount : { "$gte" : query.minCount, "$lte": query.maxCount },
+			createdAt: {"$gte" : new Date(query.startDate), "$lte": new Date(query.endDate)}
+		} }
+	]).then(records => {
 
-    let result ={
-      "code": 0,
-      "msg": "Success",
-    }
+		let result ={
+			"code": 0,
+			"msg": "Success",
+		}
 
-    result.records = records
-    response.json(result)
-  })
+		result.records = records
+		response.json(result)
+	})
 
- /*** 
+	/*** 
   Record.find({}).then(records => {
     response.json(records)
   })
@@ -56,5 +51,5 @@ app.get('/api/records', (request, response) => {
 
 const PORT = process.env.PORT||3001
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+	console.log(`Server running on port ${PORT}`)
 })
