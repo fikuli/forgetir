@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/records
+Content-Type: application/json
+
+{
+  "startDate": "2016-01-29",
+  "endDate": "2016-02-02",
+  "minCount": 2700,
+  "maxCount": 3000
+}

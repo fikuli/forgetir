@@ -1,0 +1,29 @@
+{
+  "name": "getir",
+  "version": "1.0.0",
+  "description": "case study for getir",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fikuli/forgetir.git"
+  },
+  "author": "mehmet yazgec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fikuli/forgetir/issues"
+  },
+  "homepage": "https://github.com/fikuli/forgetir#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.24"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
