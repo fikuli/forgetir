@@ -7,7 +7,7 @@ app.use(express.json())
 
 
 app.get('/', (request, response) => {
-  res.send('<h1>Hello World!</h1>')
+  response.send('<h1>Hello World!</h1>')
 })
 
 app.post('/api/records', (request, response) => {
