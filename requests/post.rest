@@ -1,4 +1,4 @@
-POST https://sheltered-forest-13336.herokuapp.com/api/records
+POST http://localhost:3001/api/records
 Content-Type: application/json
 
 {
