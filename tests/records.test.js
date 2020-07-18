@@ -1,3 +1,7 @@
+/*
+Tests against api are here.
+Each test group and individual case have their explanations with them.
+*/
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')

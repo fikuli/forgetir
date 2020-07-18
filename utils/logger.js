@@ -1,3 +1,6 @@
+/*
+application wide logger is defined here.
+*/
 const info = (...params) => {
 	console.log(...params)
 }

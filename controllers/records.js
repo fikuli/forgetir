@@ -1,3 +1,8 @@
+/*
+Router to access record recources.
+POST requests are handled here.
+*/
+
 const logger = require('../utils/logger')
 const recordsRouter = require('express').Router()
 const Record = require('../models/record')

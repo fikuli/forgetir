@@ -1,3 +1,7 @@
+/*
+main application
+connects to the database and sets up the routers to handle HTTP POST requests.
+*/
 const logger = require('./utils/logger')
 const config = require('./utils/config')
 const mongoose = require('mongoose')

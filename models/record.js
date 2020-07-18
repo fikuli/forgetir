@@ -1,3 +1,8 @@
+/*
+- Record resource schema is defined here.
+- Since the assignment does not include any insertions to the database,
+	no validation rules are defined for the fields.
+*/
 const mongoose = require('mongoose')
 
 const recordSchema = new mongoose.Schema({
