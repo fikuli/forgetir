@@ -5,8 +5,12 @@ Each test group and individual case have their explanations with them.
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
-
 const api = supertest(app)
+const Record = require('../models/record')
+
+beforeAll(async () => {
+	await Record.find({value:'Getir Task'})
+})
 
 describe('valid cases', () => {
 	test('hello world: successful valid query', async () => {
