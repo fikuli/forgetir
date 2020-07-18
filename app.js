@@ -12,13 +12,18 @@ const app = express()
 const url = config.MONGODB_URI
 logger.info('connecting to', url)
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-	.then(() => {
-		logger.info('connected to MongoDB')
+var connectWithRetry = function() {
+	return mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(error) {
+		if (error) {
+			logger.error('Failed to connect to database on startup - retrying in 5 sec', error)
+			setTimeout(connectWithRetry, 5000)
+		}
+		else{
+			logger.info('Connected to database')
+		}
 	})
-	.catch((error) => {
-		logger.info('error connecting to MongoDB:', error.message)
-	})
+}
+connectWithRetry()
 
 app.use(express.json())
 app.use('/api/records', recordsRouter)

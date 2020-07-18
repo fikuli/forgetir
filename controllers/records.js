@@ -2,7 +2,7 @@
 Router to access record recources.
 POST requests are handled here.
 */
-
+const mongoose = require('mongoose')
 const logger = require('../utils/logger')
 const recordsRouter = require('express').Router()
 const Record = require('../models/record')
@@ -11,6 +11,15 @@ recordsRouter.post('/', async (request, response) => {
 	const query = request.body
 	logger.info(query)
 	
+	if(mongoose.connection.readyState!==1){
+		let result ={
+			'code': 1,
+			'msg': 'No database connection',
+			'records': []
+		} 
+		return response.status(404).json(result)
+	}
+
 	try{
 		const records = await Record.aggregate([
 			{
@@ -37,8 +46,8 @@ recordsRouter.post('/', async (request, response) => {
 	}
 	catch(exception) {
 		let result ={
-			'code': 404,
-			'msg': 'Database connection lost',
+			'code': 2,
+			'msg': 'Database error',
 			'records': []
 		} 
 		response.status(404).json(result)
